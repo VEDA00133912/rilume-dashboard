@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import styles from '../css/dashboard/ManageServers/GuildModal.module.css';
+import styles from '@/css/dashboard/ManageServers/GuildModal.module.css';
 
 type Props = {
   guildId: string;

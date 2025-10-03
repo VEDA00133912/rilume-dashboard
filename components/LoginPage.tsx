@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import styles from '../css/LoginPage.module.css';
+import styles from '@/css/LoginPage.module.css';
 
 export default function LoginPage() {
   const [password, setPassword] = useState('');
@@ -16,7 +16,7 @@ export default function LoginPage() {
       body: JSON.stringify({ password })
     });
     if (res.ok) {
-      router.push('/dashboard/ManageServers');
+      router.push('/dashboard/Main');
     } else {
       setError('パスワードが間違っています');
     }

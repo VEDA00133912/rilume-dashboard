@@ -1,8 +1,8 @@
 // BOT参加サーバー管理
 'use client';
 import { useEffect, useState } from 'react';
-import ServerCard from '../../../components/ServerCard';
-import styles from '../../../css/dashboard/ManageServers/Page.module.css';
+import ServerCard from '@/components/ServerCard';
+import styles from '@/css/dashboard/ManageServers/Page.module.css';
 
 type Guild = {
   id: string;
