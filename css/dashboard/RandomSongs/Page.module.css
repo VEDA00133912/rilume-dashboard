@@ -1,0 +1,169 @@
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #23272A;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.header {
+  font-size: 2rem;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.switch {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.switch button {
+  background: #5865F2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.switch button:disabled {
+  background: #444;
+  cursor: default;
+}
+
+.formRow {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.titleBox {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #5865F2;
+  background: #2f3136;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.diffBox {
+  flex: 1 1 90px;
+  max-width: 100px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #5865F2;
+  background: #2f3136;
+  color: #fff;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.addBtn {
+  background: #43b581;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.addBtn:hover {
+  background: #36a174;
+}
+
+.addBtn:active {
+  transform: scale(0.96);
+}
+
+.searchBox {
+  width: 400px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #5865F2;
+  background: #2f3136;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  table-layout: fixed;
+}
+
+.table th,
+.table td {
+  border: 1px solid #5865F2;
+  padding: 8px 4px;
+  text-align: center;
+  background: #2f3136;
+  font-size: 1rem;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.table th.title,
+.table td.title {
+  width: 35%;
+}
+
+.table th.diff,
+.table td.diff {
+  width: 7%;
+}
+
+.table th.action,
+.table td.action {
+  width: 14%;
+}
+
+.actionBtns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.table input {
+  width: 90px;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #5865F2;
+  background: #23272A;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.table button {
+  background: #43b581;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin: 0;
+  transition: background 0.2s;
+  height: 28px;
+  min-height: 0;
+}
+
+.table button:last-child {
+  background: #f04747;
+}
