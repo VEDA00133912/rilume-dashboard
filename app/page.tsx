@@ -7,7 +7,7 @@ export default async function Page() {
   const isAuthed = cookieStore.get('admin_auth');
 
   if (isAuthed?.value === 'true') {
-    redirect('/dashboard/ManageServers');
+    redirect('/dashboard/Main');
   }
 
   return <LoginPage />;
