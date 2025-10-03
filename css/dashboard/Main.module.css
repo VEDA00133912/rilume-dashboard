@@ -1,0 +1,42 @@
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #222;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.header {
+  font-size: 2rem;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.grid {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.grid li {
+  background: #333;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.grid li:hover {
+  background: #444;
+}
+
+.grid a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
