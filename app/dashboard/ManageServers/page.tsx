@@ -2,7 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import ServerCard from '../../../components/ServerCard';
-import styles from '../../../css/Dashboard.module.css';
+import styles from '../../../css/dashboard/ManageServers/Page.module.css';
 
 type Guild = {
   id: string;
@@ -10,7 +10,7 @@ type Guild = {
   icon: string | null;
 };
 
-export default function Dashboard() {
+export default function ManageServers() {
   const [guilds, setGuilds] = useState<Guild[]>([]);
 
   useEffect(() => {

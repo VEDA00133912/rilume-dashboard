@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
-import styles from '../css/ServerCard.module.css';
+import styles from '../css/dashboard/ManageServers/ServerCard.module.css';
 import GuildModal from './GuildModal';
 
 type GuildProps = {
