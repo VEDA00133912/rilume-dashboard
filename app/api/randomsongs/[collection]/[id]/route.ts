@@ -1,14 +1,14 @@
 import { connectMongo } from '@/lib/mongodb';
 import { TaikoSong } from '@/models/Taiko';
 import { PrskSong } from '@/models/Prsk';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function PUT(
-  req: Request,
-  { params }: { params: { collection: string; id: string } }
+  req: NextRequest,
+  context: { params: Promise<{ collection: string; id: string }> }
 ) {
   await connectMongo();
-  const { collection, id } = params;
+  const { collection, id } = await context.params;
   const body = await req.json();
 
   try {
@@ -22,16 +22,17 @@ export async function PUT(
       return NextResponse.json({ error: 'Invalid collection' }, { status: 400 });
     }
   } catch (err) {
+    console.error('[PUT] error', err);
     return NextResponse.json({ error: 'Failed to update' }, { status: 500 });
   }
 }
 
 export async function DELETE(
-  _req: Request,
-  { params }: { params: { collection: string; id: string } }
+  req: NextRequest,
+  context: { params: Promise<{ collection: string; id: string }> }
 ) {
   await connectMongo();
-  const { collection, id } = params;
+  const { collection, id } = await context.params;
 
   try {
     if (collection === 'taiko') {
@@ -44,6 +45,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Invalid collection' }, { status: 400 });
     }
   } catch (err) {
+    console.error('[DELETE] error', err);
     return NextResponse.json({ error: 'Failed to delete' }, { status: 500 });
   }
 }

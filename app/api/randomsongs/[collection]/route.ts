@@ -5,16 +5,15 @@ import { NextResponse } from 'next/server';
 
 export async function GET(
   _req: Request,
-  { params }: { params: { collection: string } }
+  context: { params: Promise<{ collection: string }> }
 ) {
   await connectMongo();
-  const { collection } = await params;
-  console.log('[GET] collection:', collection);
+
+  const { collection } = await context.params;
 
   try {
     if (collection === 'taiko') {
       const data = await TaikoSong.find({});
-      console.log('[GET] taiko data count:', data.length);
       return NextResponse.json(data);
     } else if (collection === 'prsk') {
       const data = await PrskSong.find({});
@@ -23,16 +22,18 @@ export async function GET(
       return NextResponse.json({ error: 'Invalid collection' }, { status: 400 });
     }
   } catch (err) {
+    console.error('[GET] error:', err);
     return NextResponse.json({ error: 'Failed to fetch' }, { status: 500 });
   }
 }
 
 export async function POST(
   req: Request,
-  { params }: { params: { collection: string } }
+  context: { params: Promise<{ collection: string }> }
 ) {
   await connectMongo();
-  const { collection } = await params;
+
+  const { collection } = await context.params;
   const body = await req.json();
 
   try {
