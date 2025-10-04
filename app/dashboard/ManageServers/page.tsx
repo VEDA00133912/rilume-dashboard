@@ -1,8 +1,8 @@
 // BOT参加サーバー管理
-"use client";
-import { useEffect, useState } from "react";
-import ServerCard from "@/components/ServerCard";
-import styles from "@/css/dashboard/ManageServers/Page.module.css";
+'use client';
+import { useEffect, useState } from 'react';
+import ServerCard from '@/components/ServerCard';
+import styles from '@/css/dashboard/ManageServers/Page.module.css';
 
 type Guild = {
   id: string;
@@ -14,13 +14,13 @@ export default function ManageServers() {
   const [guilds, setGuilds] = useState<Guild[]>([]);
 
   useEffect(() => {
-    fetch("/api/guilds", { credentials: "include" })
+    fetch('/api/guilds', { credentials: 'include' })
       .then((res) => {
         if (res.status === 401) {
-          window.location.href = "/";
+          window.location.href = '/';
           return;
         }
-        if (!res.ok) throw new Error("サーバー取得エラー");
+        if (!res.ok) throw new Error('サーバー取得エラー');
         return res.json();
       })
       .then((data) => data && setGuilds(data))

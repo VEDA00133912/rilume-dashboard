@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
+import mongoose, { Schema, Document, Model } from 'mongoose';
 
 export interface ITaikoSong extends Document {
   title: string;
@@ -26,4 +26,4 @@ const TaikoSongSchema: Schema = new Schema({
 
 export const TaikoSong: Model<ITaikoSong> =
   mongoose.models.TaikoSong ||
-  mongoose.model<ITaikoSong>("TaikoSong", TaikoSongSchema);
+  mongoose.model<ITaikoSong>('TaikoSong', TaikoSongSchema);

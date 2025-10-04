@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import mongoose from "mongoose";
-import Status from "@/models/Status";
+import { NextResponse } from 'next/server';
+import mongoose from 'mongoose';
+import Status from '@/models/Status';
 
 const MONGODB_URI = process.env.STATUS_MONGODB_URI;
 
@@ -15,14 +15,14 @@ export async function GET() {
     await connectMongo();
     const latestStatus = await Status.findOne().sort({ timestamp: -1 });
 
-    const userRes = await fetch("https://discord.com/api/v10/users/@me", {
+    const userRes = await fetch('https://discord.com/api/v10/users/@me', {
       headers: { Authorization: `Bot ${process.env.BOT_TOKEN}` },
     });
 
     if (!userRes.ok) {
       return NextResponse.json(
-        { error: "Failed to fetch bot info" },
-        { status: userRes.status },
+        { error: 'Failed to fetch bot info' },
+        { status: userRes.status }
       );
     }
 
@@ -68,8 +68,8 @@ export async function GET() {
   } catch (err) {
     console.error(err);
     return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
+      { error: 'Internal Server Error' },
+      { status: 500 }
     );
   }
 }

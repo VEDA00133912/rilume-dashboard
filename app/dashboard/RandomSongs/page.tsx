@@ -1,7 +1,7 @@
-"use client";
-import { useState, useEffect, useCallback, useMemo } from "react";
-import StatusMessage from "@/components/StatusMessage";
-import styles from "@/css/dashboard/RandomSongs/Page.module.css";
+'use client';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import StatusMessage from '@/components/StatusMessage';
+import styles from '@/css/dashboard/RandomSongs/Page.module.css';
 
 type TaikoDifficulties = {
   easy?: number;
@@ -35,10 +35,10 @@ type PrskForm = {
 
 type Song = TaikoForm | PrskForm;
 
-function updateDifficulty<T extends Song, K extends keyof T["difficulties"]>(
+function updateDifficulty<T extends Song, K extends keyof T['difficulties']>(
   song: T,
   key: K,
-  value: number,
+  value: number
 ): T {
   return {
     ...song,
@@ -47,33 +47,33 @@ function updateDifficulty<T extends Song, K extends keyof T["difficulties"]>(
 }
 
 export default function RandomSongsPage() {
-  const [collection, setCollection] = useState<"taiko" | "prsk">("taiko");
+  const [collection, setCollection] = useState<'taiko' | 'prsk'>('taiko');
   const [songs, setSongs] = useState<Song[]>([]);
   const [form, setForm] = useState<TaikoForm | PrskForm>(
-    collection === "taiko" ? { difficulties: {} } : { difficulties: {} },
+    collection === 'taiko' ? { difficulties: {} } : { difficulties: {} }
   );
   const [editForm, setEditForm] = useState<TaikoForm | PrskForm>(
-    collection === "taiko" ? { difficulties: {} } : { difficulties: {} },
+    collection === 'taiko' ? { difficulties: {} } : { difficulties: {} }
   );
   const [editId, setEditId] = useState<string | null>(null);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [status, setStatus] = useState<{
     message: string;
-    type?: "success" | "error" | "info";
+    type?: 'success' | 'error' | 'info';
   } | null>(null);
 
   const fetchSongs = useCallback(async () => {
     try {
-      setStatus({ message: "データをロード中...", type: "info" });
+      setStatus({ message: 'データをロード中...', type: 'info' });
       const res = await fetch(`/api/randomsongs/${collection}`);
-      if (!res.ok) throw new Error("ロードに失敗しました");
+      if (!res.ok) throw new Error('ロードに失敗しました');
       const data: Song[] = await res.json();
       setSongs(data);
-      setStatus({ message: "ロード成功", type: "success" });
+      setStatus({ message: 'ロード成功', type: 'success' });
     } catch (err: unknown) {
       setStatus({
-        message: err instanceof Error ? err.message : "ロードに失敗しました",
-        type: "error",
+        message: err instanceof Error ? err.message : 'ロードに失敗しました',
+        type: 'error',
       });
     }
   }, [collection]);
@@ -84,27 +84,27 @@ export default function RandomSongsPage() {
 
   const handleAdd = async () => {
     try {
-      if (collection === "taiko" && !(form as TaikoForm).title)
-        throw new Error("曲名を入力してください");
-      if (collection === "prsk" && !(form as PrskForm).name)
-        throw new Error("曲名を入力してください");
+      if (collection === 'taiko' && !(form as TaikoForm).title)
+        throw new Error('曲名を入力してください');
+      if (collection === 'prsk' && !(form as PrskForm).name)
+        throw new Error('曲名を入力してください');
 
       const res = await fetch(`/api/randomsongs/${collection}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error("追加に失敗しました");
+      if (!res.ok) throw new Error('追加に失敗しました');
 
       setForm(
-        collection === "taiko" ? { difficulties: {} } : { difficulties: {} },
+        collection === 'taiko' ? { difficulties: {} } : { difficulties: {} }
       );
       await fetchSongs();
-      setStatus({ message: "追加成功", type: "success" });
+      setStatus({ message: '追加成功', type: 'success' });
     } catch (err: unknown) {
       setStatus({
-        message: err instanceof Error ? err.message : "追加に失敗しました",
-        type: "error",
+        message: err instanceof Error ? err.message : '追加に失敗しました',
+        type: 'error',
       });
     }
   };
@@ -112,16 +112,16 @@ export default function RandomSongsPage() {
   const handleDelete = async (id: string) => {
     try {
       const res = await fetch(`/api/randomsongs/${collection}/${id}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
-      if (!res.ok) throw new Error("削除に失敗しました");
+      if (!res.ok) throw new Error('削除に失敗しました');
 
       await fetchSongs();
-      setStatus({ message: "削除成功", type: "success" });
+      setStatus({ message: '削除成功', type: 'success' });
     } catch (err: unknown) {
       setStatus({
-        message: err instanceof Error ? err.message : "削除に失敗しました",
-        type: "error",
+        message: err instanceof Error ? err.message : '削除に失敗しました',
+        type: 'error',
       });
     }
   };
@@ -135,53 +135,53 @@ export default function RandomSongsPage() {
     if (!editId) return;
     try {
       const res = await fetch(`/api/randomsongs/${collection}/${editId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editForm),
       });
-      if (!res.ok) throw new Error("編集に失敗しました");
+      if (!res.ok) throw new Error('編集に失敗しました');
 
       setEditId(null);
       setEditForm(
-        collection === "taiko" ? { difficulties: {} } : { difficulties: {} },
+        collection === 'taiko' ? { difficulties: {} } : { difficulties: {} }
       );
       await fetchSongs();
-      setStatus({ message: "編集成功", type: "success" });
+      setStatus({ message: '編集成功', type: 'success' });
     } catch (err: unknown) {
       setStatus({
-        message: err instanceof Error ? err.message : "編集に失敗しました",
-        type: "error",
+        message: err instanceof Error ? err.message : '編集に失敗しました',
+        type: 'error',
       });
     }
   };
 
   const taikoGenres = [
-    "namco",
-    "gamemusic",
-    "classic",
-    "pops",
-    "anime",
-    "kids",
-    "variety",
-    "vocaloid",
+    'namco',
+    'gamemusic',
+    'classic',
+    'pops',
+    'anime',
+    'kids',
+    'variety',
+    'vocaloid',
   ] as const;
 
   const difficulties =
-    collection === "taiko"
-      ? (["easy", "normal", "hard", "oni", "edit"] as const)
-      : (["easy", "normal", "hard", "expert", "master", "append"] as const);
+    collection === 'taiko'
+      ? (['easy', 'normal', 'hard', 'oni', 'edit'] as const)
+      : (['easy', 'normal', 'hard', 'expert', 'master', 'append'] as const);
 
   const filteredSongs = useMemo(() => {
     return songs.filter((song) =>
       !search
         ? true
-        : collection === "taiko"
+        : collection === 'taiko'
           ? (song as TaikoForm).title
               ?.toLowerCase()
               .includes(search.toLowerCase())
           : (song as PrskForm).name
               ?.toLowerCase()
-              .includes(search.toLowerCase()),
+              .includes(search.toLowerCase())
     );
   }, [songs, search, collection]);
 
@@ -193,14 +193,14 @@ export default function RandomSongsPage() {
 
       <div className={styles.switch}>
         <button
-          onClick={() => setCollection("taiko")}
-          disabled={collection === "taiko"}
+          onClick={() => setCollection('taiko')}
+          disabled={collection === 'taiko'}
         >
           Taiko
         </button>
         <button
-          onClick={() => setCollection("prsk")}
-          disabled={collection === "prsk"}
+          onClick={() => setCollection('prsk')}
+          disabled={collection === 'prsk'}
         >
           Prsk
         </button>
@@ -210,25 +210,25 @@ export default function RandomSongsPage() {
         <input
           placeholder="曲名"
           value={
-            collection === "taiko"
-              ? ((form as TaikoForm).title ?? "")
-              : ((form as PrskForm).name ?? "")
+            collection === 'taiko'
+              ? ((form as TaikoForm).title ?? '')
+              : ((form as PrskForm).name ?? '')
           }
           onChange={(e) =>
             setForm((f) =>
-              collection === "taiko"
+              collection === 'taiko'
                 ? { ...(f as TaikoForm), title: e.target.value }
-                : { ...(f as PrskForm), name: e.target.value },
+                : { ...(f as PrskForm), name: e.target.value }
             )
           }
           className={styles.titleBox}
         />
       </div>
 
-      {collection === "taiko" && (
+      {collection === 'taiko' && (
         <div className={styles.formRow}>
           <select
-            value={(form as TaikoForm).genre ?? ""}
+            value={(form as TaikoForm).genre ?? ''}
             onChange={(e) =>
               setForm((f) => ({ ...(f as TaikoForm), genre: e.target.value }))
             }
@@ -251,31 +251,31 @@ export default function RandomSongsPage() {
             placeholder={dif}
             type="number"
             value={
-              collection === "taiko"
+              collection === 'taiko'
                 ? ((form as TaikoForm).difficulties[
                     dif as keyof TaikoDifficulties
-                  ] ?? "")
+                  ] ?? '')
                 : ((form as PrskForm).difficulties[
                     dif as keyof PrskDifficulties
-                  ] ?? "")
+                  ] ?? '')
             }
             onChange={(e) => {
               const value = Number(e.target.value);
-              if (collection === "taiko") {
+              if (collection === 'taiko') {
                 setForm((f) =>
                   updateDifficulty(
                     f as TaikoForm,
                     dif as keyof TaikoDifficulties,
-                    value,
-                  ),
+                    value
+                  )
                 );
               } else {
                 setForm((f) =>
                   updateDifficulty(
                     f as PrskForm,
                     dif as keyof PrskDifficulties,
-                    value,
-                  ),
+                    value
+                  )
                 );
               }
             }}
@@ -315,15 +315,15 @@ export default function RandomSongsPage() {
                 <td className={styles.title}>
                   <input
                     value={
-                      collection === "taiko"
-                        ? ((editForm as TaikoForm).title ?? "")
-                        : ((editForm as PrskForm).name ?? "")
+                      collection === 'taiko'
+                        ? ((editForm as TaikoForm).title ?? '')
+                        : ((editForm as PrskForm).name ?? '')
                     }
                     onChange={(e) =>
                       setEditForm((f) =>
-                        collection === "taiko"
+                        collection === 'taiko'
                           ? { ...(f as TaikoForm), title: e.target.value }
-                          : { ...(f as PrskForm), name: e.target.value },
+                          : { ...(f as PrskForm), name: e.target.value }
                       )
                     }
                     className={styles.titleBox}
@@ -335,31 +335,31 @@ export default function RandomSongsPage() {
                     <input
                       type="number"
                       value={
-                        collection === "taiko"
+                        collection === 'taiko'
                           ? ((editForm as TaikoForm).difficulties[
                               dif as keyof TaikoDifficulties
-                            ] ?? "")
+                            ] ?? '')
                           : ((editForm as PrskForm).difficulties[
                               dif as keyof PrskDifficulties
-                            ] ?? "")
+                            ] ?? '')
                       }
                       onChange={(e) => {
                         const value = Number(e.target.value);
-                        if (collection === "taiko") {
+                        if (collection === 'taiko') {
                           setEditForm((f) =>
                             updateDifficulty(
                               f as TaikoForm,
                               dif as keyof TaikoDifficulties,
-                              value,
-                            ),
+                              value
+                            )
                           );
                         } else {
                           setEditForm((f) =>
                             updateDifficulty(
                               f as PrskForm,
                               dif as keyof PrskDifficulties,
-                              value,
-                            ),
+                              value
+                            )
                           );
                         }
                       }}
@@ -378,19 +378,19 @@ export default function RandomSongsPage() {
             ) : (
               <tr key={song._id ?? Math.random()}>
                 <td className={styles.title}>
-                  {collection === "taiko"
+                  {collection === 'taiko'
                     ? (song as TaikoForm).title
                     : (song as PrskForm).name}
                 </td>
                 {difficulties.map((dif) => (
                   <td key={dif} className={styles.diff}>
-                    {collection === "taiko"
+                    {collection === 'taiko'
                       ? ((song as TaikoForm).difficulties[
                           dif as keyof TaikoDifficulties
-                        ] ?? "")
+                        ] ?? '')
                       : ((song as PrskForm).difficulties[
                           dif as keyof PrskDifficulties
-                        ] ?? "")}
+                        ] ?? '')}
                   </td>
                 ))}
                 <td className={styles.action}>
@@ -402,7 +402,7 @@ export default function RandomSongsPage() {
                   </div>
                 </td>
               </tr>
-            ),
+            )
           )}
         </tbody>
       </table>

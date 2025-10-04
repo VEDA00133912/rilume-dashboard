@@ -1,6 +1,6 @@
-"use client";
-import { useState, useEffect } from "react";
-import styles from "@/css/dashboard/ManageServers/GuildModal.module.css";
+'use client';
+import { useState, useEffect } from 'react';
+import styles from '@/css/dashboard/ManageServers/GuildModal.module.css';
 
 type Props = {
   guildId: string;
@@ -28,10 +28,10 @@ export default function GuildModal({ guildId, onClose }: Props) {
   }, [guildId]);
 
   const handleLeave = async () => {
-    if (!confirm("本当にサーバーからBOTを脱退しますか？")) return;
-    await fetch(`/api/guilds/${guildId}/leave`, { method: "POST" });
+    if (!confirm('本当にサーバーからBOTを脱退しますか？')) return;
+    await fetch(`/api/guilds/${guildId}/leave`, { method: 'POST' });
     onClose();
-    alert("脱退しました");
+    alert('脱退しました');
   };
 
   return (
@@ -50,7 +50,7 @@ export default function GuildModal({ guildId, onClose }: Props) {
         ) : !data ? (
           <p>データが取得できませんでした</p>
         ) : data.ok === false ? (
-          <p>エラー: {data.message || "不明なエラー"}</p>
+          <p>エラー: {data.message || '不明なエラー'}</p>
         ) : (
           <>
             <h2>{data.guild.name}</h2>

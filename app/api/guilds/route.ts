@@ -1,23 +1,23 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   try {
-    const cookie = req.headers.get("cookie") || "";
-    if (!cookie.includes("admin_auth=true")) {
+    const cookie = req.headers.get('cookie') || '';
+    if (!cookie.includes('admin_auth=true')) {
       return NextResponse.json(
-        { ok: false, message: "Unauthorized" },
-        { status: 401 },
+        { ok: false, message: 'Unauthorized' },
+        { status: 401 }
       );
     }
 
-    const res = await fetch("https://discord.com/api/v10/users/@me/guilds", {
+    const res = await fetch('https://discord.com/api/v10/users/@me/guilds', {
       headers: { Authorization: `Bot ${process.env.BOT_TOKEN}` },
     });
 
     if (!res.ok) {
       const error = await res
         .json()
-        .catch(() => ({ message: "Unknown error" }));
+        .catch(() => ({ message: 'Unknown error' }));
       return NextResponse.json({ ok: false, error }, { status: res.status });
     }
 
@@ -27,12 +27,12 @@ export async function GET(req: NextRequest) {
     if (err instanceof Error) {
       return NextResponse.json(
         { ok: false, message: err.message },
-        { status: 500 },
+        { status: 500 }
       );
     }
     return NextResponse.json(
-      { ok: false, message: "Unknown error" },
-      { status: 500 },
+      { ok: false, message: 'Unknown error' },
+      { status: 500 }
     );
   }
 }

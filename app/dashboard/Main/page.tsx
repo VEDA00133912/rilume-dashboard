@@ -1,5 +1,5 @@
-import Link from "next/link";
-import styles from "../../../css/dashboard/Main.module.css";
+import Link from 'next/link';
+import styles from '../../../css/dashboard/Main.module.css';
 
 export default function MainPage() {
   return (
