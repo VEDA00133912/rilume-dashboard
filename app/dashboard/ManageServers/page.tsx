@@ -1,7 +1,8 @@
-// BOT参加サーバー管理
 'use client';
 import { useEffect, useState } from 'react';
 import ServerCard from '@/components/ServerCard';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import styles from '@/css/dashboard/ManageServers/Page.module.css';
 
 type Guild = {
@@ -28,13 +29,17 @@ export default function ManageServers() {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.header}>Bot参加サーバー一覧</h1>
-      <div className={styles.grid}>
-        {guilds.map((g) => (
-          <ServerCard key={g.id} guild={g} />
-        ))}
+    <>
+      <Header />
+      <div className={styles.container}>
+        <h1 className={styles.header}>Bot参加サーバー一覧</h1>
+        <div className={styles.grid}>
+          {guilds.map((g) => (
+            <ServerCard key={g.id} guild={g} />
+          ))}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

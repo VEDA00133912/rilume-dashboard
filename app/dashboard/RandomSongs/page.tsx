@@ -1,7 +1,9 @@
 'use client';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import StatusMessage from '@/components/StatusMessage';
+import Header from '@/components/Header';
 import styles from '@/css/dashboard/RandomSongs/Page.module.css';
+import Footer from '@/components/Footer';
 
 type TaikoDifficulties = {
   easy?: number;
@@ -186,226 +188,236 @@ export default function RandomSongsPage() {
   }, [songs, search, collection]);
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.header}>ランダム選曲データベース管理</h2>
+    <>
+      <Header />
+      <div className={styles.container}>
+        <h2 className={styles.header}>ランダム選曲データベース管理</h2>
 
-      {status && <StatusMessage message={status.message} type={status.type} />}
+        {status && (
+          <StatusMessage message={status.message} type={status.type} />
+        )}
 
-      <div className={styles.switch}>
-        <button
-          onClick={() => setCollection('taiko')}
-          disabled={collection === 'taiko'}
-        >
-          Taiko
-        </button>
-        <button
-          onClick={() => setCollection('prsk')}
-          disabled={collection === 'prsk'}
-        >
-          Prsk
-        </button>
-      </div>
-
-      <div className={styles.formRow}>
-        <input
-          placeholder="曲名"
-          value={
-            collection === 'taiko'
-              ? ((form as TaikoForm).title ?? '')
-              : ((form as PrskForm).name ?? '')
-          }
-          onChange={(e) =>
-            setForm((f) =>
-              collection === 'taiko'
-                ? { ...(f as TaikoForm), title: e.target.value }
-                : { ...(f as PrskForm), name: e.target.value }
-            )
-          }
-          className={styles.titleBox}
-        />
-      </div>
-
-      {collection === 'taiko' && (
-        <div className={styles.formRow}>
-          <select
-            value={(form as TaikoForm).genre ?? ''}
-            onChange={(e) =>
-              setForm((f) => ({ ...(f as TaikoForm), genre: e.target.value }))
-            }
-            className={styles.titleBox}
+        <div className={styles.switch}>
+          <button
+            onClick={() => setCollection('taiko')}
+            disabled={collection === 'taiko'}
           >
-            <option value="">ジャンルを選択</option>
-            {taikoGenres.map((genre) => (
-              <option key={genre} value={genre}>
-                {genre}
-              </option>
-            ))}
-          </select>
+            Taiko
+          </button>
+          <button
+            onClick={() => setCollection('prsk')}
+            disabled={collection === 'prsk'}
+          >
+            Prsk
+          </button>
         </div>
-      )}
 
-      <div className={styles.formRow}>
-        {difficulties.map((dif) => (
+        <div className={styles.formRow}>
           <input
-            key={dif}
-            placeholder={dif}
-            type="number"
+            placeholder="曲名"
             value={
               collection === 'taiko'
-                ? ((form as TaikoForm).difficulties[
-                    dif as keyof TaikoDifficulties
-                  ] ?? '')
-                : ((form as PrskForm).difficulties[
-                    dif as keyof PrskDifficulties
-                  ] ?? '')
+                ? ((form as TaikoForm).title ?? '')
+                : ((form as PrskForm).name ?? '')
             }
-            onChange={(e) => {
-              const value = Number(e.target.value);
-              if (collection === 'taiko') {
-                setForm((f) =>
-                  updateDifficulty(
-                    f as TaikoForm,
-                    dif as keyof TaikoDifficulties,
-                    value
-                  )
-                );
-              } else {
-                setForm((f) =>
-                  updateDifficulty(
-                    f as PrskForm,
-                    dif as keyof PrskDifficulties,
-                    value
-                  )
-                );
-              }
-            }}
-            className={styles.diffBox}
+            onChange={(e) =>
+              setForm((f) =>
+                collection === 'taiko'
+                  ? { ...(f as TaikoForm), title: e.target.value }
+                  : { ...(f as PrskForm), name: e.target.value }
+              )
+            }
+            className={styles.titleBox}
           />
-        ))}
-        <button onClick={handleAdd} className={styles.addBtn}>
-          追加
-        </button>
-      </div>
+        </div>
 
-      <div className={styles.formRow}>
-        <input
-          placeholder="検索"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className={styles.titleBox}
-        />
-      </div>
+        {collection === 'taiko' && (
+          <div className={styles.formRow}>
+            <select
+              value={(form as TaikoForm).genre ?? ''}
+              onChange={(e) =>
+                setForm((f) => ({ ...(f as TaikoForm), genre: e.target.value }))
+              }
+              className={styles.titleBox}
+            >
+              <option value="">ジャンルを選択</option>
+              {taikoGenres.map((genre) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th className={styles.title}>曲名</th>
-            {difficulties.map((dif) => (
-              <th key={dif} className={styles.diff}>
-                {dif}
-              </th>
-            ))}
-            <th className={styles.action}>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredSongs.map((song) =>
-            editId === song._id ? (
-              <tr key={song._id ?? Math.random()}>
-                <td className={styles.title}>
-                  <input
-                    value={
-                      collection === 'taiko'
-                        ? ((editForm as TaikoForm).title ?? '')
-                        : ((editForm as PrskForm).name ?? '')
-                    }
-                    onChange={(e) =>
-                      setEditForm((f) =>
-                        collection === 'taiko'
-                          ? { ...(f as TaikoForm), title: e.target.value }
-                          : { ...(f as PrskForm), name: e.target.value }
-                      )
-                    }
-                    className={styles.titleBox}
-                  />
-                </td>
+        <div className={styles.formRow}>
+          {difficulties.map((dif) => (
+            <input
+              key={dif}
+              placeholder={dif}
+              type="number"
+              value={
+                collection === 'taiko'
+                  ? ((form as TaikoForm).difficulties[
+                      dif as keyof TaikoDifficulties
+                    ] ?? '')
+                  : ((form as PrskForm).difficulties[
+                      dif as keyof PrskDifficulties
+                    ] ?? '')
+              }
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                if (collection === 'taiko') {
+                  setForm((f) =>
+                    updateDifficulty(
+                      f as TaikoForm,
+                      dif as keyof TaikoDifficulties,
+                      value
+                    )
+                  );
+                } else {
+                  setForm((f) =>
+                    updateDifficulty(
+                      f as PrskForm,
+                      dif as keyof PrskDifficulties,
+                      value
+                    )
+                  );
+                }
+              }}
+              className={styles.diffBox}
+            />
+          ))}
+          <button onClick={handleAdd} className={styles.addBtn}>
+            追加
+          </button>
+        </div>
 
-                {difficulties.map((dif) => (
-                  <td key={dif} className={styles.diff}>
+        <div className={styles.formRow}>
+          <input
+            placeholder="検索"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className={styles.titleBox}
+          />
+        </div>
+
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th className={styles.title}>曲名</th>
+              {difficulties.map((dif) => (
+                <th key={dif} className={styles.diff}>
+                  {dif}
+                </th>
+              ))}
+              <th className={styles.action}>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredSongs.map((song) =>
+              editId === song._id ? (
+                <tr key={song._id ?? Math.random()}>
+                  <td className={styles.title}>
                     <input
-                      type="number"
                       value={
                         collection === 'taiko'
-                          ? ((editForm as TaikoForm).difficulties[
-                              dif as keyof TaikoDifficulties
-                            ] ?? '')
-                          : ((editForm as PrskForm).difficulties[
-                              dif as keyof PrskDifficulties
-                            ] ?? '')
+                          ? ((editForm as TaikoForm).title ?? '')
+                          : ((editForm as PrskForm).name ?? '')
                       }
-                      onChange={(e) => {
-                        const value = Number(e.target.value);
-                        if (collection === 'taiko') {
-                          setEditForm((f) =>
-                            updateDifficulty(
-                              f as TaikoForm,
-                              dif as keyof TaikoDifficulties,
-                              value
-                            )
-                          );
-                        } else {
-                          setEditForm((f) =>
-                            updateDifficulty(
-                              f as PrskForm,
-                              dif as keyof PrskDifficulties,
-                              value
-                            )
-                          );
-                        }
-                      }}
-                      className={styles.diffBox}
+                      onChange={(e) =>
+                        setEditForm((f) =>
+                          collection === 'taiko'
+                            ? { ...(f as TaikoForm), title: e.target.value }
+                            : { ...(f as PrskForm), name: e.target.value }
+                        )
+                      }
+                      className={styles.titleBox}
                     />
                   </td>
-                ))}
 
-                <td className={styles.action}>
-                  <div className={styles.actionBtns}>
-                    <button onClick={handleUpdate}>保存</button>
-                    <button onClick={() => setEditId(null)}>キャンセル</button>
-                  </div>
-                </td>
-              </tr>
-            ) : (
-              <tr key={song._id ?? Math.random()}>
-                <td className={styles.title}>
-                  {collection === 'taiko'
-                    ? (song as TaikoForm).title
-                    : (song as PrskForm).name}
-                </td>
-                {difficulties.map((dif) => (
-                  <td key={dif} className={styles.diff}>
-                    {collection === 'taiko'
-                      ? ((song as TaikoForm).difficulties[
-                          dif as keyof TaikoDifficulties
-                        ] ?? '')
-                      : ((song as PrskForm).difficulties[
-                          dif as keyof PrskDifficulties
-                        ] ?? '')}
+                  {difficulties.map((dif) => (
+                    <td key={dif} className={styles.diff}>
+                      <input
+                        type="number"
+                        value={
+                          collection === 'taiko'
+                            ? ((editForm as TaikoForm).difficulties[
+                                dif as keyof TaikoDifficulties
+                              ] ?? '')
+                            : ((editForm as PrskForm).difficulties[
+                                dif as keyof PrskDifficulties
+                              ] ?? '')
+                        }
+                        onChange={(e) => {
+                          const value = Number(e.target.value);
+                          if (collection === 'taiko') {
+                            setEditForm((f) =>
+                              updateDifficulty(
+                                f as TaikoForm,
+                                dif as keyof TaikoDifficulties,
+                                value
+                              )
+                            );
+                          } else {
+                            setEditForm((f) =>
+                              updateDifficulty(
+                                f as PrskForm,
+                                dif as keyof PrskDifficulties,
+                                value
+                              )
+                            );
+                          }
+                        }}
+                        className={styles.diffBox}
+                      />
+                    </td>
+                  ))}
+
+                  <td className={styles.action}>
+                    <div className={styles.actionBtns}>
+                      <button onClick={handleUpdate}>保存</button>
+                      <button onClick={() => setEditId(null)}>
+                        キャンセル
+                      </button>
+                    </div>
                   </td>
-                ))}
-                <td className={styles.action}>
-                  <div className={styles.actionBtns}>
-                    <button onClick={() => handleEdit(song)}>編集</button>
-                    <button onClick={() => song._id && handleDelete(song._id)}>
-                      削除
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            )
-          )}
-        </tbody>
-      </table>
-    </div>
+                </tr>
+              ) : (
+                <tr key={song._id ?? Math.random()}>
+                  <td className={styles.title}>
+                    {collection === 'taiko'
+                      ? (song as TaikoForm).title
+                      : (song as PrskForm).name}
+                  </td>
+                  {difficulties.map((dif) => (
+                    <td key={dif} className={styles.diff}>
+                      {collection === 'taiko'
+                        ? ((song as TaikoForm).difficulties[
+                            dif as keyof TaikoDifficulties
+                          ] ?? '')
+                        : ((song as PrskForm).difficulties[
+                            dif as keyof PrskDifficulties
+                          ] ?? '')}
+                    </td>
+                  ))}
+                  <td className={styles.action}>
+                    <div className={styles.actionBtns}>
+                      <button onClick={() => handleEdit(song)}>編集</button>
+                      <button
+                        onClick={() => song._id && handleDelete(song._id)}
+                      >
+                        削除
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              )
+            )}
+          </tbody>
+        </table>
+      </div>
+      <Footer />
+    </>
   );
 }

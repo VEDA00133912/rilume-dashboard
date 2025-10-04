@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from '@/css/dashboard/Info/Page.module.css';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 type BotInfo = {
   id: string;
@@ -50,70 +52,74 @@ export default function BotInfoPage() {
     );
 
   return (
-    <div className={styles.container}>
-      <div className={styles.card}>
-        {data.bannerUrl && (
-          <div className={styles.bannerWrapper}>
-            <Image
-              src={data.bannerUrl}
-              alt="Banner"
-              width={600}
-              height={200}
-              className={styles.banner}
-            />
-          </div>
-        )}
-
-        <div className={styles.header}>
-          <Image
-            src={data.avatarUrl}
-            alt="Avatar"
-            width={96}
-            height={96}
-            className={styles.avatar}
-          />
-          <div>
-            <div className={styles.title}>
-              {data.username}
-              <span className={styles.subtitle}>#{data.discriminator}</span>
+    <>
+      <Header />
+      <div className={styles.container}>
+        <div className={styles.card}>
+          {data.bannerUrl && (
+            <div className={styles.bannerWrapper}>
+              <Image
+                src={data.bannerUrl}
+                alt="Banner"
+                width={600}
+                height={200}
+                className={styles.banner}
+              />
             </div>
-            {data.global_name && (
-              <div className={styles.subtitle}>{data.global_name}</div>
+          )}
+
+          <div className={styles.header}>
+            <Image
+              src={data.avatarUrl}
+              alt="Avatar"
+              width={96}
+              height={96}
+              className={styles.avatar}
+            />
+            <div>
+              <div className={styles.title}>
+                {data.username}
+                <span className={styles.subtitle}>#{data.discriminator}</span>
+              </div>
+              {data.global_name && (
+                <div className={styles.subtitle}>{data.global_name}</div>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.info}>
+            <div className={styles.infoRow}>
+              <span className={styles.label}>BOTステータス</span>
+              <span
+                className={styles.value}
+                style={{ color: data.online ? 'limegreen' : 'red' }}
+              >
+                {data.online ? 'オンライン' : 'オフライン'}
+              </span>
+            </div>
+
+            <div className={styles.infoRow}>
+              <span className={styles.label}>参加サーバー数</span>
+              <span className={styles.value}>{data.guildCount}</span>
+            </div>
+
+            <div className={styles.infoRow}>
+              <span className={styles.label}>利用メンバー数</span>
+              <span className={styles.value}>{data.totalMembers}</span>
+            </div>
+
+            {data.lastUpdate && (
+              <div className={styles.infoRow}>
+                <span className={styles.label}>最終動作確認時刻</span>
+                <span className={styles.value}>
+                  {new Date(data.lastUpdate).toLocaleString()}
+                </span>
+              </div>
             )}
           </div>
         </div>
-
-        <div className={styles.info}>
-          <div className={styles.infoRow}>
-            <span className={styles.label}>BOTステータス</span>
-            <span
-              className={styles.value}
-              style={{ color: data.online ? 'limegreen' : 'red' }}
-            >
-              {data.online ? 'オンライン' : 'オフライン'}
-            </span>
-          </div>
-
-          <div className={styles.infoRow}>
-            <span className={styles.label}>参加サーバー数</span>
-            <span className={styles.value}>{data.guildCount}</span>
-          </div>
-
-          <div className={styles.infoRow}>
-            <span className={styles.label}>利用メンバー数</span>
-            <span className={styles.value}>{data.totalMembers}</span>
-          </div>
-
-          {data.lastUpdate && (
-            <div className={styles.infoRow}>
-              <span className={styles.label}>最終動作確認時刻</span>
-              <span className={styles.value}>
-                {new Date(data.lastUpdate).toLocaleString()}
-              </span>
-            </div>
-          )}
-        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }
