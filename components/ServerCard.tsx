@@ -1,8 +1,8 @@
-'use client';
-import { useState } from 'react';
-import Image from 'next/image';
-import styles from '@/css/dashboard/ManageServers/ServerCard.module.css';
-import GuildModal from '@/components/GuildModal';
+"use client";
+import { useState } from "react";
+import Image from "next/image";
+import styles from "@/css/dashboard/ManageServers/ServerCard.module.css";
+import GuildModal from "@/components/GuildModal";
 
 type GuildProps = {
   guild?: {
@@ -19,7 +19,7 @@ export default function ServerCard({ guild }: GuildProps) {
 
   const iconUrl = guild.icon
     ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`
-    : 'https://cdn.discordapp.com/embed/avatars/0.png';
+    : "https://cdn.discordapp.com/embed/avatars/0.png";
 
   return (
     <>
@@ -33,8 +33,8 @@ export default function ServerCard({ guild }: GuildProps) {
             className={styles.icon}
           />
         </div>
-        <h3 className={styles.name}>{guild.name ?? '不明なサーバー'}</h3>
-        <p className={styles.id}>ID: {guild.id ?? '不明'}</p>
+        <h3 className={styles.name}>{guild.name ?? "不明なサーバー"}</h3>
+        <p className={styles.id}>ID: {guild.id ?? "不明"}</p>
       </div>
       {open && <GuildModal guildId={guild.id} onClose={() => setOpen(false)} />}
     </>

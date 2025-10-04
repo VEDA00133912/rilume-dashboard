@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model } from 'mongoose';
+import mongoose, { Schema, Document, Model } from "mongoose";
 
 export interface IPrskSong extends Document {
   name: string;
@@ -25,4 +25,5 @@ const PrskSongSchema: Schema = new Schema({
 });
 
 export const PrskSong: Model<IPrskSong> =
-  mongoose.models.PrskSong || mongoose.model<IPrskSong>('PrskSong', PrskSongSchema);
+  mongoose.models.PrskSong ||
+  mongoose.model<IPrskSong>("PrskSong", PrskSongSchema);
