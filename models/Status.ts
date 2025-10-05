@@ -1,6 +1,6 @@
-import { Schema, model, models, Document } from 'mongoose';
+import mongoose, { Schema, Document, models } from 'mongoose';
 
-interface IStatus extends Document {
+export interface IStatus extends Document {
   timestamp: Date;
   online: boolean;
   guildCount: number;
@@ -14,6 +14,6 @@ const statusSchema = new Schema<IStatus>({
   guildMember: { type: Number, required: true },
 });
 
-const Status = models.Status || model<IStatus>('Status', statusSchema);
+const Status = models.Status || mongoose.model<IStatus>('Status', statusSchema);
 
 export default Status;

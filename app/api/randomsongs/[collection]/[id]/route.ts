@@ -1,7 +1,15 @@
-import { connectMongo } from '@/lib/mongodb';
+import mongoose from 'mongoose';
 import { TaikoSong } from '@/models/Taiko';
 import { PrskSong } from '@/models/Prsk';
 import { NextRequest, NextResponse } from 'next/server';
+
+const MONGODB_URI = process.env.RANDOM_MONGODB_URI;
+
+async function connectMongo() {
+  if (mongoose.connection.readyState === 0) {
+    await mongoose.connect(MONGODB_URI!);
+  }
+}
 
 export async function PUT(
   req: NextRequest,

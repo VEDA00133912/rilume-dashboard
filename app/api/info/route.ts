@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import Status from '@/models/Status';
 
-const MONGODB_URI = process.env.STATUS_MONGODB_URI;
+const MONGODB_URI = process.env.MAIN_MONGODB_URI;
 
 async function connectMongo() {
   if (mongoose.connection.readyState === 0) {
