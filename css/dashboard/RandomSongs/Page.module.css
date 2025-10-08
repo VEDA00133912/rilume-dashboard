@@ -7,6 +7,7 @@
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
   color: #fff;
   border: 2px solid #fff;
+  box-sizing: border-box;
 }
 
 .header {
@@ -20,6 +21,7 @@
   gap: 12px;
   margin-bottom: 24px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .switch button {
@@ -56,6 +58,7 @@
   background: #2f3136;
   color: #fff;
   font-size: 1.05rem;
+  box-sizing: border-box;
 }
 
 .diffBox {
@@ -68,6 +71,7 @@
   color: #fff;
   font-size: 1rem;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .addBtn {
@@ -92,13 +96,20 @@
 }
 
 .searchBox {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   padding: 8px 12px;
   border-radius: 6px;
   border: 1px solid #5865f2;
   background: #2f3136;
   color: #fff;
   font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  width: 100%;
 }
 
 .table {
@@ -106,6 +117,7 @@
   border-collapse: collapse;
   margin-top: 24px;
   table-layout: fixed;
+  min-width: 600px;
 }
 
 .table th,
@@ -150,6 +162,7 @@
   background: #23272a;
   color: #fff;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 
 .table button {
@@ -168,4 +181,99 @@
 
 .table button:last-child {
   background: #f04747;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  .header {
+    font-size: 1.5rem;
+  }
+
+  .switch {
+    gap: 8px;
+  }
+
+  .titleBox,
+  .searchBox {
+    max-width: 100%;
+  }
+
+  .diffBox {
+    max-width: 80px;
+  }
+
+  .addBtn {
+    padding: 6px 16px;
+    font-size: 0.95rem;
+  }
+
+  .table th,
+  .table td {
+    font-size: 0.9rem;
+    padding: 6px 4px;
+  }
+
+  .table input {
+    width: 70px;
+    font-size: 0.9rem;
+    padding: 3px 4px;
+  }
+
+  .table button {
+    font-size: 0.85rem;
+    padding: 3px 8px;
+    height: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+    margin: 16px auto;
+  }
+
+  .header {
+    font-size: 1.25rem;
+  }
+
+  .switch {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .titleBox,
+  .searchBox {
+    width: 100%;
+  }
+
+  .diffBox {
+    max-width: 70px;
+  }
+
+  .addBtn {
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+
+  .table th,
+  .table td {
+    font-size: 0.85rem;
+    padding: 4px 2px;
+  }
+
+  .table input {
+    width: 60px;
+    font-size: 0.85rem;
+  }
+
+  .table button {
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    height: 24px;
+  }
 }

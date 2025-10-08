@@ -7,6 +7,7 @@
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
   color: #fff;
   border: 2px solid #fff;
+  transition: all 0.3s ease;
 }
 
 .header {
@@ -18,9 +19,9 @@
 .grid {
   list-style: none;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
 .grid li {
@@ -28,15 +29,64 @@
   border-radius: 8px;
   padding: 16px;
   text-align: center;
-  transition: background 0.2s;
+  transition:
+    background 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
+  cursor: pointer;
 }
 
 .grid li:hover {
   background: #444;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .grid a {
   color: #fff;
   text-decoration: none;
   font-size: 1.2rem;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin: 20px;
+    padding: 20px;
+    border-width: 1px;
+  }
+
+  .header {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .grid li {
+    padding: 12px;
+  }
+
+  .grid a {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .container {
+    padding: 24px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .grid a {
+    font-size: 1.1rem;
+  }
 }

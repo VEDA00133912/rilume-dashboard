@@ -1,4 +1,4 @@
-.header {
+/* .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,6 +8,9 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   font-family: 'gg sans', 'Noto Sans JP', sans-serif;
   border-bottom: 1px solid #1e2124;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .nav {
@@ -52,4 +55,183 @@
   font-weight: 600;
   letter-spacing: 0.5px;
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: #2f3136;
+    border-top: 1px solid #1e2124;
+    margin-top: 0.5rem;
+    padding: 0.75rem 0;
+  }
+
+  .nav.open {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .link {
+    padding: 0.5rem 1rem;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .menuButton {
+    display: block;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .menuButton:hover {
+    transform: scale(1.1);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header {
+    padding: 0.8rem 1.2rem;
+  }
+
+  .link {
+    font-size: 0.9rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, #2f3136, #23272a);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-family: 'gg sans', 'Noto Sans JP', sans-serif;
+  border-bottom: 1px solid #1e2124;
+  flex-wrap: wrap;
+}
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.currentPage {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.nav {
+  display: flex;
+  gap: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.link {
+  color: #b9bbbe;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.link:hover {
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.active {
+  color: #5865f2;
+  font-weight: 600;
+  position: relative;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background: #5865f2;
+  border-radius: 2px;
+}
+
+/* --- ハンバーガーボタン --- */
+.menuButton {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 30px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.bar,
+.barOpen {
+  width: 100%;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* 開閉アニメーション */
+.menuButton:hover .bar {
+  background: #5865f2;
+}
+
+/* スマホ対応 */
+@media (max-width: 768px) {
+  .menuButton {
+    display: flex;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: #23272a;
+    border-top: 1px solid #1e2124;
+    margin-top: 10px;
+    padding: 0.5rem 1rem;
+  }
+
+  .navOpen {
+    display: flex;
+  }
+
+  .link,
+  .active {
+    font-size: 0.95rem;
+    padding: 0.6rem 0;
+  }
 }

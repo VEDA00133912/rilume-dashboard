@@ -1,9 +1,14 @@
 .container {
   min-height: 100vh;
-  padding: 20px;
+  padding: 24px;
   background-color: #36393f;
   color: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: padding 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .header {
@@ -11,10 +16,79 @@
   margin-bottom: 24px;
   font-size: 28px;
   font-weight: 700;
+  color: #ffffff;
+  transition: font-size 0.3s ease;
+}
+
+.status {
+  text-align: center;
+  font-size: 16px;
+  color: #b9bbbe;
+  margin-bottom: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.status strong {
+  color: #ffffff;
+}
+
+.error {
+  color: #ed4245;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  justify-items: center;
+  transition: gap 0.3s ease;
+  width: 100%;
+  max-width: 1000px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header {
+    font-size: 22px;
+  }
+
+  .status {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .container {
+    padding: 20px;
+  }
+
+  .header {
+    font-size: 26px;
+  }
+
+  .status {
+    font-size: 15px;
+    margin-bottom: 18px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
 }

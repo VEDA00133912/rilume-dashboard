@@ -37,6 +37,7 @@
   max-width: 600px;
   width: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
 }
 
 .header {
@@ -72,6 +73,7 @@
   font-weight: bold;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .subtitle {
@@ -104,4 +106,74 @@
   text-align: right;
   color: #fff;
   word-break: break-word;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .card {
+    padding: 1.2rem;
+    border-radius: 12px;
+  }
+
+  .bannerWrapper {
+    height: 120px;
+    margin-bottom: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+    margin-right: 0;
+    margin-bottom: 0.8rem;
+  }
+
+  .title {
+    font-size: 1.4rem;
+    justify-content: center;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    margin-left: 0;
+    display: block;
+  }
+
+  .infoRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .label,
+  .value {
+    text-align: left;
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .card {
+    max-width: 90%;
+    padding: 1.8rem;
+  }
+
+  .bannerWrapper {
+    height: 140px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .infoRow {
+    padding: 0.6rem 0;
+  }
 }

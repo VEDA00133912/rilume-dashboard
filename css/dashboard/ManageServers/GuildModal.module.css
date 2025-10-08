@@ -4,52 +4,135 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.65);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.25s ease-out;
 }
 
 .modal {
   position: relative;
   background: #2f3136;
-  padding: 24px;
+  padding: 28px 24px;
   border-radius: 12px;
   width: 480px;
   color: #fff;
   text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  animation: popUp 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popUp {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .closeButton {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 10px;
+  right: 10px;
   border: none;
   background: transparent;
-  color: #fff;
-  font-size: 20px;
+  color: #b9bbbe;
+  font-size: 22px;
   cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.closeButton:hover {
+  color: #ffffff;
+}
+
+.modal h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.modal p {
+  font-size: 15px;
+  color: #b9bbbe;
+  margin-bottom: 16px;
+  line-height: 1.5;
 }
 
 .leaveButton {
-  margin-top: 12px;
-  padding: 8px;
+  margin-top: 16px;
+  padding: 10px;
   width: 100%;
   border-radius: 8px;
   border: none;
-  background: #f04747;
+  background: #ed4245;
   color: #fff;
   cursor: pointer;
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.leaveButton:hover {
+  background-color: #c03535;
+  transform: translateY(-1px);
 }
 
 .closeActionButton {
-  margin-top: 8px;
-  padding: 6px;
+  margin-top: 10px;
+  padding: 10px;
   width: 100%;
   border-radius: 8px;
   border: none;
-  background: #7289da;
+  background: #5865f2;
   color: #fff;
   cursor: pointer;
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.closeActionButton:hover {
+  background-color: #4752c4;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .modal {
+    width: 90%;
+    padding: 20px 16px;
+    border-radius: 10px;
+  }
+
+  .modal h2 {
+    font-size: 18px;
+  }
+
+  .modal p {
+    font-size: 14px;
+  }
+
+  .leaveButton,
+  .closeActionButton {
+    padding: 8px;
+    font-size: 14px;
+  }
 }
