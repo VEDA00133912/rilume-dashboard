@@ -83,9 +83,9 @@ export default function ImpersonateModal({ onClose }: { onClose: () => void }) {
                   <span>
                     <b>Impersonate:</b>{' '}
                     {item.impersonate ? (
-                      <span className={styles.enabled}>✅ 有効</span>
+                      <span className={styles.enabled}>有効</span>
                     ) : (
-                      <span className={styles.disabled}>❌ 無効</span>
+                      <span className={styles.disabled}>無効</span>
                     )}
                   </span>
                 </div>

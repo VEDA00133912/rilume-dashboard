@@ -23,13 +23,13 @@ export default async function MainPage() {
             <Link href="/dashboard/ManageServers">サーバー管理</Link>
           </li>
           <li>
-            <Link href="/dashboard/BlackList">ブラックリスト管理</Link>
+            <Link href="/dashboard/BlackList">ブラックリスト</Link>
           </li>
           <li>
             <Link href="/dashboard/Info">BOT情報</Link>
           </li>
           <li>
-            <Link href="/dashboard/RandomSongs">ランダム選曲DB管理</Link>
+            <Link href="/dashboard/RandomSongs">ランダム選曲DB</Link>
           </li>
           <li>
             <Link href="/dashboard/Settings">サーバー設定</Link>

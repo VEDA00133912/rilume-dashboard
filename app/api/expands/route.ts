@@ -4,12 +4,10 @@ import Expands from '@/models/Expands';
 
 const MONGODB_URI = process.env.MAIN_MONGODB_URI!;
 
-// MongoDB 接続関数
 async function connectMongo() {
   if (mongoose.connection.readyState === 0) {
     try {
       await mongoose.connect(MONGODB_URI);
-      console.log('[DB] Connected to MongoDB');
     } catch (err) {
       console.error('[DB] Connection failed:', err);
       throw new Error('Failed to connect to MongoDB');
@@ -17,7 +15,6 @@ async function connectMongo() {
   }
 }
 
-// GET: すべての Expand 設定を取得
 export async function GET() {
   try {
     await connectMongo();
@@ -32,7 +29,6 @@ export async function GET() {
   }
 }
 
-// PATCH: Expand 設定を更新
 export async function PATCH(req: Request) {
   try {
     await connectMongo();
@@ -65,7 +61,6 @@ export async function PATCH(req: Request) {
   }
 }
 
-// DELETE: Expand 設定を削除
 export async function DELETE(req: Request) {
   try {
     await connectMongo();

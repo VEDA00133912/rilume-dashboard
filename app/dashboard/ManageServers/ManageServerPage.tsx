@@ -27,11 +27,33 @@ export default function ManageServersClient() {
         return res.json();
       })
       .then((data) => {
-        if (data) setGuilds(data);
+        if (data) {
+          const sorted = data.sort((a: Guild, b: Guild) =>
+            a.id.localeCompare(b.id)
+          );
+          setGuilds(sorted);
+        }
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
+
+  const renderStatus = () => {
+    if (loading) return <p className={styles.status}>読み込み中...</p>;
+    if (error)
+      return (
+        <p className={`${styles.status} ${styles.error}`}>エラー: {error}</p>
+      );
+    if (guilds.length === 0)
+      return (
+        <p className={styles.status}>Botが参加しているサーバーはありません。</p>
+      );
+    return (
+      <p className={styles.status}>
+        参加中のサーバー数: <strong>{guilds.length}</strong>
+      </p>
+    );
+  };
 
   return (
     <>
@@ -39,13 +61,10 @@ export default function ManageServersClient() {
       <div className={styles.container}>
         <h1 className={styles.header}>Bot参加サーバー一覧</h1>
 
-        {loading ? (
-          <p className={styles.loading}>読み込み中...</p>
-        ) : error ? (
-          <p className={styles.error}>エラー: {error}</p>
-        ) : guilds.length === 0 ? (
-          <p className={styles.empty}>Botが参加しているサーバーはありません。</p>
-        ) : (
+        {/* ✅ 状態表示を統一 */}
+        {renderStatus()}
+
+        {!loading && !error && guilds.length > 0 && (
           <div className={styles.grid}>
             {guilds.map((g) => (
               <ServerCard key={g.id} guild={g} />

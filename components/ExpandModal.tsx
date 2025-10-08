@@ -80,9 +80,9 @@ export default function ExpandsModal({ onClose }: { onClose: () => void }) {
                 <div>
                   <b>Expand:</b>{' '}
                   {item.expand ? (
-                    <span className={styles.enabled}>✅ 有効</span>
+                    <span className={styles.enabled}>有効</span>
                   ) : (
-                    <span className={styles.disabled}>❌ 無効</span>
+                    <span className={styles.disabled}>無効</span>
                   )}
                 </div>
                 <div>
